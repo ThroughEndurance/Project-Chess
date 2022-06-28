@@ -14,27 +14,21 @@ const reviewSchema = new Schema({
 const gameSchema = new Schema({
   WinOrLoss: {
     type: String,
-    required: true
   },
   PlayerColor: {
     type: String,
-    required: true 
   },
   PlayerRank: {
     type: Number,
-    required: true
   },
   OpponentRank: {
     type: Number,
-    required: true
   },
   Opening: {
     type: String,
-    required: true
   },
   GameLink: {
     type: String,
-    required: true
   }
 }, {
   timestamps: true

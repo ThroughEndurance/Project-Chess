@@ -2,15 +2,38 @@
 <table id="list">
   <thead>
     <tr>
+      
+      <th>Game Result</th>
+
+      <th>Player<br>Color</th>
+
       <th>Player<br>Rank</th>
+
       <th>Opponent<br>Rank</th>
+
+      <th>Opening</th>
+
+      <th>Game Link</th>
+
+      <th>Details</th>
+
     </tr>
   </thead>
   <tbody>
     <% games.forEach(function(g) { %>
       <tr>
+        <td><%= g.WinOrLoss %></td>
+
+        <td><%= g.PlayerColor %></td>
+
         <td><%= g.PlayerRank %></td>
+
         <td><%= g.OpponentRank %></td>
+
+        <td><%= g.Opening %></td>
+
+        <td><%= g.GameLink %></td>
+
         <td><a href="/games/<%= g._id %>">DETAILS</a></td>
       </tr>
       <% }); %>
