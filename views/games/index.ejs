@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+<table id="list">
+  <thead>
+    <tr>
+      <th>Player<br>Rank</th>
+      <th>Opponent<br>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% games.forEach(function(g) { %>
+      <tr>
+        <td><%= g.PlayerRank %></td>
+        <td><%= g.OpponentRank %></td>
+        <td><a href="/games/<%= g._id %>">DETAILS</a></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  
+<%- include('../partials/footer') %>

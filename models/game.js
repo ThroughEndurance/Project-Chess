@@ -11,26 +11,33 @@ const reviewSchema = new Schema({
   timestamps: true
 });
 
-const movieSchema = new Schema({
-  title: {
+const gameSchema = new Schema({
+  WinOrLoss: {
     type: String,
     required: true
   },
-  releaseYear: {
-    type: Number,
-    default: function () {
-      return new Date().getFullYear();
-    }
+  PlayerColor: {
+    type: String,
+    required: true 
   },
-  mpaaRating: String,
-  cast: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Performer'
-  }],
-  nowShowing: { type: Boolean, default: false },
-  reviews: [reviewSchema]
+  PlayerRank: {
+    type: Number,
+    required: true
+  },
+  OpponentRank: {
+    type: Number,
+    required: true
+  },
+  Opening: {
+    type: String,
+    required: true
+  },
+  GameLink: {
+    type: String,
+    required: true
+  }
 }, {
   timestamps: true
 });
 
-module.exports = mongoose.model('Movie', movieSchema);
+module.exports = mongoose.model('Game', gameSchema);
