@@ -1,10 +1,12 @@
+const game = require('../models/game');
 const Game = require('../models/game');
 
 module.exports = {
   index,
   show,
   new: newGame,
-  create
+  create,
+  delete: deleteGame
 };
 
 function index(req, res) {
@@ -29,4 +31,18 @@ function create(req, res) {
     if (err) return res.redirect('/games/new');
     res.redirect(`/games/${game._id}`);
   });
+}
+
+// function deleteGame(req, res) {
+//   Game.remove(req.params.id);
+//   res.redirect('/games');
+// }
+
+
+function deleteGame(req, res) {
+  Game.findOneAndDelete(
+    {_id: req.params.id, userRecommending: req.user._id}, function(err) {
+      res.redirect('/games');
+    }
+  );
 }

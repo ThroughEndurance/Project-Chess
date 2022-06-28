@@ -17,6 +17,8 @@
 
       <th>Details</th>
 
+      <th>Delete</th>
+
     </tr>
   </thead>
   <tbody>
@@ -35,6 +37,12 @@
         <td><%= g.GameLink %></td>
 
         <td><a href="/games/<%= g._id %>">DETAILS</a></td>
+
+        <td><form action="/games/<%= g.id %>?_method=DELETE"
+          class="delete-form" method="POST">
+          <button type="submit">X</button>
+        </form></td>
+
       </tr>
       <% }); %>
     </tbody>
