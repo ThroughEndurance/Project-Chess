@@ -7,7 +7,8 @@ module.exports = {
   new: newGame,
   create,
   delete: deleteGame,
-  edit
+  edit,
+  update
 };
 
 function index(req, res) {
@@ -28,17 +29,12 @@ function newGame(req, res) {
 
 function create(req, res) {
   const game = new Game(req.body);
+  game.userRecommending = req.user._id;
   game.save(function(err) {
     if (err) return res.redirect('/games/new');
     res.redirect(`/games/${game._id}`);
   });
 }
-
-// function deleteGame(req, res) {
-//   Game.remove(req.params.id);
-//   res.redirect('/games');
-// }
-
 
 function deleteGame(req, res) {
   Game.findOneAndDelete(
@@ -51,12 +47,16 @@ function deleteGame(req, res) {
 function edit(req, res) {
   Game.findOne({_id: req.params.id, userRecommending: req.user._id}, function(err, game) {
     if (err || !game) return res.redirect('/games');
-    res.render('games/edit', {game});
+    res.render('games/edit', {title: 'Edit Details', game});
   });
 }
 
-// function edit(req, res) {
-//   res.render('games/edit', {
-//     game: Game.getOne(req.params.id)
-//   })
-// }
+function update(req, res) {
+  Game.findOneAndUpdate(
+    {_id: req.params.id, userRecommending: req.user._id}, req.body, {new: true},
+    function(err, game) {
+      if (err || !game) return res.redirect('/games');
+      res.redirect(`${game._id}`);
+    }
+  );
+}
