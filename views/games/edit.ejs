@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<form id="new-form" action="/games/<%= game.id %>?_method=PUT" method="POST">
+
+  <label>Win or Loss:</label>
+  <input type="text" name="WinOrLoss">
+
+  <label>Player Color:</label>
+  <input type="text" name="PlayerColor">
+
+  <label>Player Rank:</label>
+  <input type="number" name="PlayerRank">
+
+  <label>Opponent Rank:</label>
+  <input type="number" name="OpponentRank">
+
+  <label>Opening:</label>
+  <input type="text" name="Opening">
+
+  <label>GameLink:</label>
+  <input type="text" name="GameLink">
+
+  <input type="submit" value="Update Game">
+
+</form>
+
+<%- include('../partials/footer') %>

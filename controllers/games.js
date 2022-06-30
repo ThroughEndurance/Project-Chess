@@ -6,7 +6,8 @@ module.exports = {
   show,
   new: newGame,
   create,
-  delete: deleteGame
+  delete: deleteGame,
+  edit
 };
 
 function index(req, res) {
@@ -46,3 +47,16 @@ function deleteGame(req, res) {
     }
   );
 }
+
+function edit(req, res) {
+  Game.findOne({_id: req.params.id, userRecommending: req.user._id}, function(err, game) {
+    if (err || !game) return res.redirect('/games');
+    res.render('games/edit', {game});
+  });
+}
+
+// function edit(req, res) {
+//   res.render('games/edit', {
+//     game: Game.getOne(req.params.id)
+//   })
+// }
