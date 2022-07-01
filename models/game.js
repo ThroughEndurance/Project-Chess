@@ -5,11 +5,6 @@ const noteSchema = new Schema({
   content: {
     type: String, 
     },
-  rating: {
-    type: Number,
-    min: 1,
-    max: 10
-  },
 }, {
   timestamps: true
 });
