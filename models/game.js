@@ -33,6 +33,11 @@ const gameSchema = new Schema({
   GameLink: {
     type: String,
   },
+  user: {
+    type: Schema.Types.ObjectId, ref: 'User', required: true
+  },
+  userName: String,
+  userAvatar: String,
   notes: [noteSchema]
 }, {
   timestamps: true

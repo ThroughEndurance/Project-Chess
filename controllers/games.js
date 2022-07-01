@@ -1,4 +1,3 @@
-const game = require('../models/game');
 const Game = require('../models/game');
 
 module.exports = {
@@ -29,7 +28,7 @@ function newGame(req, res) {
 
 function create(req, res) {
   const game = new Game(req.body);
-  game.userRecommending = req.user._id;
+  game.user = req.user._id;
   game.save(function(err) {
     if (err) return res.redirect('/games/new');
     res.redirect(`/games/${game._id}`);
@@ -38,25 +37,25 @@ function create(req, res) {
 
 function deleteGame(req, res) {
   Game.findOneAndDelete(
-    {_id: req.params.id, userRecommending: req.user._id}, function(err) {
+    {_id: req.params.id, user: req.user._id}, function(err) {
       res.redirect('/games');
     }
   );
 }
 
 function edit(req, res) {
-  Game.findOne({_id: req.params.id, userRecommending: req.user._id}, function(err, game) {
+  Game.findOne({_id: req.params.id, user: req.user._id}, function(err, game) {
     if (err || !game) return res.redirect('/games');
     res.render('games/edit', {title: 'Edit Details', game});
   });
 }
 
 function update(req, res) {
-  Game.findOneAndUpdate(
-    {_id: req.params.id, userRecommending: req.user._id}, req.body, {new: true},
-    function(err, game) {
-      if (err || !game) return res.redirect('/games');
-      res.redirect(`${game._id}`);
-    }
-  );
+  let game = Game.findByIdAndUpdate(req.params.id, req.body, function(err, game) {
+    if (req.user && req.user.equals(game.user)){
+      res.render(`/games/show`, game);
+    }    
+    if (err || !game) return res.redirect('/games');
+        res.redirect(`${game._id}`);
+    })
 }
